@@ -1,0 +1,38 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    networks: 
+      - app-network
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:80"
+    networks: 
+      - app-network
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "appdb"
+    volumes: 
+     - pgdata:/var/lib/postgresql
+     - ./db:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+    networks: 
+      - app-network
+
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge
