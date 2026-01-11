@@ -32,5 +32,5 @@ jobs:
           sleep 10
           
           # Health checks
-          curl -f http://localhost/api/health || exit 1
-          curl -f http://localhost/api/users || exit 1
+          curl -f http://localhost:81/api/health || exit 1
+          curl -f http://localhost:81/api/users || exit 1
